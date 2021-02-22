@@ -21,8 +21,8 @@ The most important thing for now is that:
 
 # Usage
 
-To run script type:
-LSD.py <sample_list.txt> <path_to_your_raw_data> <type_of_the_data> (for now there are 16SV4 and COI options)
+To run the script use:
+LSD.py <sample_list.txt> <path_to_your_raw_data> <type_of_the_data>
 
 **LSD.py** - our shiny, new script,
 **sample_list** - list with libraries that you want to analyse created in following manner:
