@@ -9,4 +9,10 @@ The main difference between previous approach and new one is that instead of ana
 Also our apprach is Python-based, so you can just customize our script with info about your directories, run it and **sip your favourite drink waiting for the results**
 
 ## Note
-We are aware that our script is not perfect, it should be simplified and more user friendly. **We will get there soon**
+We are aware that our script is not perfect, it should be simplified and more user friendly. **We will get there soon!**
+
+The most important thing for mow is that:
+
+
+
+![alt text](https://media.makeameme.org/created/its-working-oyy433.jpg)
