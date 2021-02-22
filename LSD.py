@@ -176,7 +176,7 @@ os.system ("mv zotu.fasta ../ && mv all_libraries_zotu_table.txt ../ && cd ..")
 ###Creating fasta file with all trimmed sequences from all the libraries:
 os.system("cd trimmed && cat *.fasta > all_samples_trimmed.fasta && mv all_samples_trimmed.fasta ../ && cd ..")
 ###OTU picking and chimeras removal using ASV as an input:
-os.system("usearch -cluster_otus zotus.fasta -otus otus.fasta -minsize 2 -relabel OTU -uparseout zotu_otu_relationships.txt")
+os.system("usearch -cluster_otus zotus.fasta -otus otus.fasta -relabel OTU -uparseout zotu_otu_relationships.txt")
 os.system("usearch -usearch_global all_samples_trimmed.fasta -db otus.fasta -strand plus -id 0.97 -otutabout otu_table.txt")
 ### Creating a new fasta file of zOTUs without information about size:
 os.system("sed -E 's/;size=[0-9].{0,}//g' zotus.fasta > new_zotus.fasta")
