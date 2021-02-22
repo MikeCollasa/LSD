@@ -11,7 +11,7 @@ Tou can run it with one click and **sip your favourite drink waiting for the res
 ## Note
 We are aware that our script is not perfect, it should be simplified and more user friendly. **We will get there soon!**
 
-The most important thing for mow is that:
+The most important thing for now is that:
 
 
 
