@@ -21,7 +21,7 @@ The most important thing for now is that:
 
 # Usage
 
-To run the script use:
+To run the script provide:
 LSD.py <sample_list.txt> <path_to_your_raw_data> <type_of_the_data>
 
 **LSD.py** - our shiny, new script,
