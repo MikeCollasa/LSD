@@ -8,7 +8,7 @@ Please provide:
 Sample_name Sample_name_R1.fastq Sample_name_R2.fastq
 2) path to the directory with R1 and R2 fiels for all the amplicon libraries that you want to analyse e.g.:
 /home/Data/For/Nature/Publication/)
-3) type of data, please indicate if you are going to analyse 16SV4 (Bacterial) or COI.
+3) type of data, please indicate if you are going to analyse 16SV4 (Bacterial) or COI.""")
 Script, sample_list, path_to_your_raw_data, type_of_data = sys.argv
 
 SAMPLE_LIST = open(sample_list, "r")
@@ -115,7 +115,7 @@ def create_library(Lib_info):
             seq_dict[key].update({lib_name : counts})
 
 #Changing working directory to one with our zotu_tables_with_sequences
-os. chdir(path_to_your_raw_data + "/zotu_tables_with_sequences)
+os. chdir(path_to_your_raw_data + "/zotu_tables_with_sequences")
 cwd = os.getcwd()  # Get the current working directory (cwd)
 files = os.listdir(cwd) 
 
