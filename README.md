@@ -7,7 +7,7 @@ Here we provide the details of the updated amplicon data analysis workflow devel
 # Differences
 The main difference between previous approach and new one is that instead of analysing **all** sequences from all the libraries at once our script analases **each library separately** and then joines them in one table.
 
-You can run it with one click and **sip your favourite drink waiting for the results**
+You can run it with one click and **relax sipping your favourite drink waiting for the results**
 
 ## Note
 We are aware that our script is not perfect, it should be simplified and more user friendly. **We will get there soon!**
