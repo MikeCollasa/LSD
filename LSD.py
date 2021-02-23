@@ -24,7 +24,7 @@ for line in SAMPLE_LIST:
 ### Removing unassebles and discarded sequences along with renaming assembled ones:
 os.system("rm *unassembled* *discarded*")
 os.system("rename -f 's/.assembled//' *fastq")
-os.system ("mkdir reads && mv *_R?.fastq reads/")
+os.system ("mkdir reads && mv *_R?* reads/")
 
 ### Fastq to Fasta formatting:
 os.system("""for file in *.fastq; do
