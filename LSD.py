@@ -44,8 +44,8 @@ if type_of_data == "COI":
 elif type_of_data == "16SV4":
    os.system("""for file in *.fasta; do
         SampleName=`basename $file .fasta`
-        egrep -B 1 "GTG[TC]CAGC[CA]GCCGCGGTAA.{250,260}ATTAGA[AT]ACCC[CGT][ACGT]GTAGTCC" all_samples.fasta | egrep -v "^\-\-$" |
-        sed -E 's/.*GTG[TC]CAGC[CA]GCCGCGGTAA//; s/ATTAGA[AT]ACCC[ACGT][ACGT]GTAGTCC.*//' > all_samples_trimmed.fasta
+        egrep -B 1 "GTG[TC]CAGC[CA]GCCGCGGTAA.{250,260}ATTAGA[AT]ACCC[CGT][ACGT]GTAGTCC" "$SampleName".trimmed.fasta | egrep -v "^\-\-$" |
+        sed -E 's/.*GTG[TC]CAGC[CA]GCCGCGGTAA//; s/ATTAGA[AT]ACCC[ACGT][ACGT]GTAGTCC.*//' > "$SampleName".trimmed.fasta
     done""")
    
 ###Deleting untrimmed sequences:
