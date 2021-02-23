@@ -158,7 +158,7 @@ with open("all_libraries_zotu_table.txt", 'w') as bigFile:
     ###appending new zotu name for each sequence starting with the most abundant
     counter = 1
     for zotu in data:
-        zotu[0] = "Zotu_" + str(counter) 
+        zotu[0] = "Zotu" + str(counter) 
         counter += 1
 
     for zotu in data:
@@ -191,7 +191,7 @@ vsearch --sintax otus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spike
 os.system("""sed -i 's/[dpcofgs]\://g' zotus.tax
 sed -i 's/[dpcofgs]\://g' otus.tax""")
 ###Putting it all together with Piotr's scripts:
-os.system("""./combine_zOTU_files.py all_libraries_zotu_table.txt zotus.tax new_zotus.fasta zotu_otu_relationships.txt
+os.system("""combine_zOTU_files.py all_libraries_zotu_table.txt zotus.tax new_zotus.fasta zotu_otu_relationships.txt
 combine_OTU_files.py otu_table.txt otus.tax otus.fasta""")
 
 print("Symbio® Na zdrowie! Salud! Gānbēi (干杯)! Skål!")
