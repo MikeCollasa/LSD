@@ -44,14 +44,14 @@ if type_of_data == "COI":
 elif type_of_data == "16SV4":
    os.system("""for file in *.fasta; do
         SampleName=`basename $file .fasta`
-        egrep -B 1 "GTG[TC]CAGC[CA]GCCGCGGTAA.{250,260}ATTAGA[AT]ACCC[CGT][ACGT]GTAGTCC" "$SampleName".trimmed.fasta | egrep -v "^\-\-$" |
+        egrep -B 1 "GTG[TC]CAGC[CA]GCCGCGGTAA.{250,260}ATTAGA[AT]ACCC[CGT][ACGT]GTAGTCC" $SampleName.fasta | egrep -v "^\-\-$" |
         sed -E 's/.*GTG[TC]CAGC[CA]GCCGCGGTAA//; s/ATTAGA[AT]ACCC[ACGT][ACGT]GTAGTCC.*//' > "$SampleName".trimmed.fasta
     done""")
    
 ###Deleting untrimmed sequences:
 os.system("find . -maxdepth 1 -not -name '*trimmed.fasta' -name '*.fasta' -delete")
 
-os.system("""for file in *.fasta; do
+os.system("""for file in *.trimmed.fasta; do
     SampleName=`basename $file .trimmed.fasta`
     vsearch -derep_fulllength $SampleName.trimmed.fasta -output "$SampleName".derep.fasta -sizeout -uc "$SampleName".derep_info.txt
 done""")
@@ -173,13 +173,21 @@ with open ("zotus.fasta", 'w') as fasta:
         seq = ">" + zotu[0] + ";size=" + str(zotu[2]) + '\n' + zotu[1] + '\n'
         fasta.write(seq)
 os.system ("mv zotu.fasta ../ && mv all_libraries_zotu_table.txt ../ && cd ..")
+
+
 ###Creating fasta file with all trimmed sequences from all the libraries:
 os.system("cd trimmed && cat *.fasta > all_samples_trimmed.fasta && mv all_samples_trimmed.fasta ../ && cd ..")
+
+
 ###OTU picking and chimeras removal using ASV as an input:
 os.system("usearch -cluster_otus zotus.fasta -otus otus.fasta -relabel OTU -uparseout zotu_otu_relationships.txt")
 os.system("usearch -usearch_global all_samples_trimmed.fasta -db otus.fasta -strand plus -id 0.97 -otutabout otu_table.txt")
+
+
 ### Creating a new fasta file of zOTUs without information about size:
 os.system("sed -E 's/;size=[0-9].{0,}//g' zotus.fasta > new_zotus.fasta")
+
+
 ###Assigning taxonomy:
 if type_of_data == "COI":
     os.system("""vsearch --sintax new_zotus.fasta -db /mnt/matrix/symbio/db/MIDORI/MIDORI_with_tax_spikeins_endo_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.5
@@ -187,9 +195,13 @@ if type_of_data == "COI":
 elif type_of_data == "16SV4":
     os.system("""search --sintax new_zotus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.5
 vsearch --sintax otus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout otus.tax -strand both -sintax_cutoff 0.5""")
+    
+    
 ###Removing redundant info from out taxonomy files:
 os.system("""sed -i 's/[dpcofgs]\://g' zotus.tax
 sed -i 's/[dpcofgs]\://g' otus.tax""")
+
+
 ###Putting it all together with Piotr's scripts:
 os.system("""combine_zOTU_files.py all_libraries_zotu_table.txt zotus.tax new_zotus.fasta zotu_otu_relationships.txt
 combine_OTU_files.py otu_table.txt otus.tax otus.fasta""")
