@@ -67,9 +67,10 @@ done""")
 os.system("mkdir derep && mv *derep* derep/")
 
 ###Denoising:
+### You can use -minsize option for example if you have very low number of reads in your libraries
 os.system("""for file in *sorted.fasta; do
     SampleName=`basename $file .sorted.fasta`
-    usearch -unoise3 $SampleName.sorted.fasta -zotus $SampleName.zotus.fasta -tabbedout $SampleName.denoising.summary.txt -minsize 1
+    usearch -unoise3 $SampleName.sorted.fasta -zotus $SampleName.zotus.fasta -tabbedout $SampleName.denoising.summary.txt
 done""")
 
 os.system("mkdir sorted && mv *sorted.fasta sorted/")
