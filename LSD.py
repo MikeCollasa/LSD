@@ -78,7 +78,7 @@ os.system("mkdir denoising_summary && mv *denoising.summary.txt denoising_summar
 
 os.system("""for file in *.fasta; do
     SampleName=`basename $file .zotus.fasta`
-    usearch -otutab ./trimmed/"$SampleName".trimmed.fasta -zotus $SampleName.zotus.fasta -otutabout "$SampleName"_zotu_table.txt
+    usearch -otutab ./trimmed/"$SampleName".trimmed.fasta -zotus $SampleName.zotus.fasta -otutabout "$SampleName"_zotu_table.txt -threads 60
 done""")
 
 ###Adding sequence to zOTU_table with add_seq_to_zotu.py:
@@ -180,8 +180,8 @@ os.system("cd trimmed && cat *.fasta > all_samples_trimmed.fasta && mv all_sampl
 
 
 ###OTU picking and chimeras removal using ASV as an input:
-os.system("usearch -cluster_otus zotus.fasta -otus otus.fasta -relabel OTU -uparseout zotu_otu_relationships.txt")
-os.system("usearch -usearch_global all_samples_trimmed.fasta -db otus.fasta -strand plus -id 0.97 -otutabout otu_table.txt")
+os.system("usearch -cluster_otus zotus.fasta -otus otus.fasta -relabel OTU -uparseout zotu_otu_relationships.txt -threads 60")
+os.system("usearch -usearch_global all_samples_trimmed.fasta -db otus.fasta -strand plus -id 0.97 -otutabout otu_table.txt -threads 60")
 
 
 ### Creating a new fasta file of zOTUs without information about size:
