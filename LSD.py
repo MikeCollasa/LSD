@@ -173,7 +173,7 @@ with open ("zotus.fasta", 'w') as fasta:
     for zotu in data:
         seq = ">" + zotu[0] + ";size=" + str(zotu[2]) + '\n' + zotu[1] + '\n'
         fasta.write(seq)
-os.system ("mv zotu.fasta ../ && mv all_libraries_zotu_table.txt ../ && cd ..")
+os.system ("mv zotus.fasta ../ && mv all_libraries_zotu_table.txt ../ && cd ..")
 
 
 ###Creating fasta file with all trimmed sequences from all the libraries:
