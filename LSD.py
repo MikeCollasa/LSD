@@ -21,6 +21,10 @@ for line in SAMPLE_LIST:
         os.system("pear -f %s -r %s -o %s -v 15 -n 400 -m 470 -q 30 -j 20" % (LINE[1], LINE[2], LINE[0]))
     elif type_of_data == "16SV4":
         os.system("pear -f %s -r %s -o %s -v 15 -n 250 -m 400 -q 30 -j 20" % (LINE[1], LINE[2], LINE[0]))
+    elif type_of_data == "16SV1-V2":
+        os.system("pear -f %s -r %s -o %s -v 15 -n 250 -m 400 -q 30 -j 20" % (LINE[1], LINE[2], LINE[0]))
+        
+        
 ### Removing unassebles and discarded sequences along with renaming assembled ones:
 os.system("rm *unassembled* *discarded*")
 os.system("rename -f 's/.assembled//' *fastq")
