@@ -8,7 +8,7 @@ Please provide:
 Sample_name Sample_name_R1.fastq Sample_name_R2.fastq
 2) path to the directory with R1 and R2 fiels for all the amplicon libraries that you want to analyse e.g.:
 /home/Data/For/Nature/Publication/)
-3) type of data, please indicate if you are going to analyse 16SV4 (Bacterial) or COI.""")
+3) type of data, please indicate if you are going to analyse 16SV4, 16SV1-V2 (Bacterial) or COI.""")
 Script, sample_list, path_to_your_raw_data, type_of_data = sys.argv
 
 SAMPLE_LIST = open(sample_list, "r")
@@ -47,6 +47,14 @@ elif type_of_data == "16SV4":
         egrep -B 1 "GTG[TC]CAGC[CA]GCCGCGGTAA.{250,260}ATTAGA[AT]ACCC[CGT][ACGT]GTAGTCC" $SampleName.fasta | egrep -v "^\-\-$" |
         sed -E 's/.*GTG[TC]CAGC[CA]GCCGCGGTAA//; s/ATTAGA[AT]ACCC[ACGT][ACGT]GTAGTCC.*//' > "$SampleName".trimmed.fasta
     done""")
+elif type_of_data == "16SV1-V2":
+    os.system("""for file in *.fasta; do
+        SampleName=`basename $file .fasta`
+        egrep -B 1 "AG[AC]GTT[TC]GAT[TC][AC]TGGCTCAG.{250,350}ACTCCTACGGGAGGCAGCA" all_samples.fasta | egrep -v "^\-\-$" |
+        sed -E 's/.*AG[AC]GTT[TC]GAT[TC][AC]TGGCTCAG//; s/ACTCCTACGGGAGGCAGCA.*//' > all_samples_trimmed.fasta 
+    done""")
+    
+
    
 ###Deleting untrimmed sequences:
 os.system("find . -maxdepth 1 -not -name '*trimmed.fasta' -name '*.fasta' -delete")
@@ -73,12 +81,16 @@ if type_of_data == "COI":
         SampleName=`basename $file .sorted.fasta`
         usearch -unoise3 $SampleName.sorted.fasta -zotus $SampleName.zotus.fasta -tabbedout $SampleName.denoising.summary.txt -minsize 1
     done""")
-elif type_of_data == "16S":
+elif type_of_data == "16SV4":
     os.system("""for file in *sorted.fasta; do
         SampleName=`basename $file .sorted.fasta`
         usearch -unoise3 $SampleName.sorted.fasta -zotus $SampleName.zotus.fasta -tabbedout $SampleName.denoising.summary.txt
     done""")
-    
+elif type_of_data == "16SV1-V2":
+    os.system("""for file in *sorted.fasta; do
+        SampleName=`basename $file .sorted.fasta`
+        usearch -unoise3 $SampleName.sorted.fasta -zotus $SampleName.zotus.fasta -tabbedout $SampleName.denoising.summary.txt
+    done""")    
 
 os.system("mkdir sorted && mv *sorted.fasta sorted/")
 os.system("mkdir denoising_summary && mv *denoising.summary.txt denoising_summary/")
@@ -203,7 +215,9 @@ if type_of_data == "COI":
 elif type_of_data == "16SV4":
     os.system("""vsearch --sintax new_zotus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.8
 vsearch --sintax otus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout otus.tax -strand both -sintax_cutoff 0.8""")
-    
+elif type_of_data == "16SV1-V2":
+    os.system("""vsearch --sintax new_zotus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout zotus.tax -strand both -sintax_cutoff 0.8
+vsearch --sintax otus.fasta -db /mnt/matrix/symbio/db/SILVA_138/SILVA_endo_spikeins_RDP.fasta -tabbedout otus.tax -strand both -sintax_cutoff 0.8""")    
     
 ###Removing redundant info from out taxonomy files:
 os.system("""sed -i 's/[dpcofgs]\://g' zotus.tax
@@ -211,6 +225,7 @@ sed -i 's/[dpcofgs]\://g' otus.tax""")
 
 
 ###Putting it all together with Piotr's scripts:
+
 os.system("""combine_zOTU_files.py all_libraries_zotu_table.txt zotus.tax new_zotus.fasta zotu_otu_relationships.txt
 combine_OTU_files.py otu_table.txt otus.tax otus.fasta""")
 
