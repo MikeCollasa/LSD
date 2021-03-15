@@ -203,8 +203,8 @@ os.system("cd trimmed && cat *.fasta > all_samples_trimmed.fasta && mv all_sampl
 
 
 ###OTU picking and chimeras removal using ASV as an input:
-os.system("usearch -cluster_otus zotus.fasta -otus otus.fasta -relabel OTU -uparseout zotu_otu_relationships.txt -threads 60")
-os.system("usearch -usearch_global all_samples_trimmed.fasta -db otus.fasta -strand plus -id 0.97 -otutabout otu_table.txt -threads 60")
+os.system("vsearch --cluster_otus zotus.fasta --otus otus.fasta --relabel OTU --uparseout zotu_otu_relationships.txt --threads 60")
+os.system("vsearch --usearch_global all_samples_trimmed.fasta --db otus.fasta --strand plus --id 0.97 --otutabout otu_table.txt --threads 60")
 
 
 ### Creating a new fasta file of zOTUs without information about size:
