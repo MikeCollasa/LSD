@@ -6,6 +6,7 @@ if len(sys.argv) != 4:
 Please provide:
 1) sample list with information about your libraries created in following manner:
 Sample_name Sample_name_R1.fastq Sample_name_R2.fastq
+Please remember to first un-gzip your .gz files!!!
 2) path to the directory with R1 and R2 fiels for all the amplicon libraries that you want to analyse e.g.:
 /home/Data/For/Nature/Publication/)
 3) type of data, please indicate if you are going to analyse 16SV4, 16SV1-V2 (Bacterial) or COI.""")
