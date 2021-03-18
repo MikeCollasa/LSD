@@ -55,8 +55,8 @@ elif type_of_data == "16SV4":
 elif type_of_data == "16SV1-V2":
     os.system("""for file in *.fasta; do
         SampleName=`basename $file .fasta`
-        egrep -B 1 "AG[AC]GTT[TC]GAT[TC][AC]TGGCTCAG.{250,350}ACTCCTACGGGAGGCAGCA" all_samples.fasta | egrep -v "^\-\-$" |
-        sed -E 's/.*AG[AC]GTT[TC]GAT[TC][AC]TGGCTCAG//; s/ACTCCTACGGGAGGCAGCA.*//' > all_samples_trimmed.fasta 
+        egrep -B 1 "AG[AC]GTT[TC]GAT[TC][AC]TGGCTCAG.{250,350}ACTCCTACGGGAGGCAGCA" $SampleName.fasta | egrep -v "^\-\-$" |
+        sed -E 's/.*AG[AC]GTT[TC]GAT[TC][AC]TGGCTCAG//; s/ACTCCTACGGGAGGCAGCA.*//' > "$SampleName".trimmed.fasta
     done""")
     
 
@@ -204,7 +204,7 @@ os.system("cd trimmed && cat *.fasta > all_samples_trimmed.fasta && mv all_sampl
 
 
 ###OTU picking and chimeras removal using ASV as an input:
-os.system("vsearch --cluster_otus zotus.fasta --otus otus.fasta --relabel OTU --uparseout zotu_otu_relationships.txt --threads 60")
+os.system("usearch -cluster_otus zotus.fasta -otus otus.fasta -relabel OTU -uparseout zotu_otu_relationships.txt -threads 60")
 os.system("vsearch --usearch_global all_samples_trimmed.fasta --db otus.fasta --strand plus --id 0.97 --otutabout otu_table.txt --threads 60")
 
 
