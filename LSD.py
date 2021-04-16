@@ -70,6 +70,7 @@ print("OK!")
 ###Deleting untrimmed sequences:
 os.system("find . -maxdepth 1 -not -name '*trimmed.fasta' -name '*.fasta' -delete")
 
+print("Dereplicating data..................... ", end="")
 os.system("""for file in *.trimmed.fasta; do
     SampleName=`basename $file .trimmed.fasta`
     vsearch -derep_fulllength $SampleName.trimmed.fasta -output "$SampleName".derep.fasta -sizeout -uc "$SampleName".derep_info.txt
@@ -77,7 +78,6 @@ done""")
 
 os.system("mkdir trimmed && mv *trimmed.fasta trimmed/")
 
-print("Dereplicating data..................... ", end="")
 ###Dereplicating data - picking representative sequences:
 os.system("""for file in *derep.fasta; do
     SampleName=`basename $file .derep.fasta`
@@ -217,10 +217,9 @@ print("OK!")
 print("OTU picking and chimeras assignment..................... ", end="")
 ###OTU picking and chimeras removal using ASV as an input:
 os.system("usearch -cluster_otus zotus.fasta -otus otus.fasta -relabel OTU -uparseout zotu_otu_relationships.txt -threads 60")
-os.system("vsearch --usearch_global all_samples_trimmed.fasta --db otus.fasta --strand plus --id 0.97 --otutabout otu_table.txt")
 print("OK!") 
 
-### Creating a new fasta file of zOTUs without information about size:
+### Creating a new fasta file of zOTUs without information about the size:
 os.system("sed -E 's/;size=[0-9].{0,}//g' zotus.fasta > new_zotus.fasta")
 
 print("Assigning taxonomy..................... ", end="")
@@ -242,7 +241,6 @@ sed -i 's/[dpcofgs]\://g' otus.tax""")
 print("OK!") 
 
 print("Outputting OTU and zOTU Tables..................... ", end="")'''
-
 
 ##### Setting names of output files
 Output_table = "zotu_table_expanded.txt"
