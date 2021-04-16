@@ -22,7 +22,8 @@ The most important thing for now is that:
 # Usage
 
 To run the script provide:
-LSD.py <sample_list.txt> <path_to_your_raw_data> <type_of_the_data>
+./LSD.py <sample_list.txt> <path_to_your_raw_data> <type_of_the_data>
+eg.: ./LSD.py sample_list.txt /home/data/16S 16SV4
 
 **LSD.py** - our shiny, new script,
 
@@ -32,4 +33,4 @@ Sample_name Sample_name_R1.fastq Sample_name_R2.fastq,
 **path_to_your_raw_data** - path to the directory with R1 and R2 fiels for all the amplicon libraries from sample_list.txt e.g.:
 /home/Data/For/Nature/Publication/),
 
-**type_of_date** - please indicate if you are going to analyse 16SV4 or COI (only optiopns for now).
+**type_of_data** - please indicate if you are going to analyse 16SV4 or COI (only optiopns for now).
