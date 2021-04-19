@@ -327,7 +327,7 @@ for line in RELS:
         zOTU_dict[zOTU].append(OTU_ID)
         
     else:
-        print(f"Relationship file contains a term that I have not considered:\n{line}")
+        print("Relationship file contains a term that I have not considered")
         sys.exit()
 
 RELS.close()
