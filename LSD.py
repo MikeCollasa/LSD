@@ -16,7 +16,7 @@ Script, sample_list, path_to_your_raw_data, type_of_data = sys.argv
 SAMPLE_LIST = open(sample_list, "r")
 input = os.listdir(path_to_your_raw_data)
 
-'''print("Joining R1 and R2 files through Pear..................... ", end="")
+print("Joining R1 and R2 files through Pear..................... ", end="")
 for line in SAMPLE_LIST:
     LINE = line.strip().split()
     if type_of_data == "COI":
@@ -240,7 +240,7 @@ os.system("""sed -i 's/[dpcofgs]\://g' zotus.tax
 sed -i 's/[dpcofgs]\://g' otus.tax""")
 print("OK!") 
 
-print("Outputting OTU and zOTU Tables..................... ", end="")'''
+print("Outputting OTU and zOTU Tables..................... ", end="")
 
 ##### Setting names of output files
 Output_table = "zotu_table_expanded.txt"
