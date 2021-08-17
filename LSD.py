@@ -99,12 +99,12 @@ if type_of_data == "COI":
 elif type_of_data == "16SV4":
     os.system("""for file in *sorted.fasta; do
         SampleName=`basename $file .sorted.fasta`
-        usearch -unoise3 $SampleName.sorted.fasta -zotus $SampleName.zotus.fasta -tabbedout $SampleName.denoising.summary.txt
+        usearch -unoise3 $SampleName.sorted.fasta -zotus $SampleName.zotus.fasta -tabbedout $SampleName.denoising.summary.txt -minsize 1
     done""")
 elif type_of_data == "16SV1-V2":
     os.system("""for file in *sorted.fasta; do
         SampleName=`basename $file .sorted.fasta`
-        usearch -unoise3 $SampleName.sorted.fasta -zotus $SampleName.zotus.fasta -tabbedout $SampleName.denoising.summary.txt
+        usearch -unoise3 $SampleName.sorted.fasta -zotus $SampleName.zotus.fasta -tabbedout $SampleName.denoising.summary.txt -minsize 1
     done""")    
 
 os.system("mkdir sorted && mv *sorted.fasta sorted/")
