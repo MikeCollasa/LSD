@@ -20,11 +20,11 @@ print("Joining R1 and R2 files through Pear..................... ", end="")
 for line in SAMPLE_LIST:
     LINE = line.strip().split()
     if type_of_data == "COI":
-        os.system("pear -f %s -r %s -o %s -v 15 -n 400 -m 470 -q 30 -j 20" % (LINE[1], LINE[2], LINE[0]))
+        os.system("pear -f %s -r %s -o %s -v 15 -n 400 -m 470 -q 30 -j 50" % (LINE[1], LINE[2], LINE[0]))
     elif type_of_data == "16SV4":
-        os.system("pear -f %s -r %s -o %s -v 15 -n 250 -m 400 -q 30 -j 20" % (LINE[1], LINE[2], LINE[0]))
+        os.system("pear -f %s -r %s -o %s -v 15 -n 250 -m 400 -q 30 -j 50" % (LINE[1], LINE[2], LINE[0]))
     elif type_of_data == "16SV1-V2":
-        os.system("pear -f %s -r %s -o %s -v 15 -n 250 -m 400 -q 30 -j 20" % (LINE[1], LINE[2], LINE[0]))
+        os.system("pear -f %s -r %s -o %s -v 15 -n 250 -m 400 -q 30 -j 50" % (LINE[1], LINE[2], LINE[0]))
 
 print("OK!")        
 
@@ -121,7 +121,7 @@ print("Joinign data from all the libraries into one tabel..................... "
 ###Adding sequence to zOTU_table with add_seq_to_zotu.py:
 os.system("""for file in *.fasta; do
     SampleName=`basename $file .zotus.fasta`
-    ./add_seq_to_zotu.py "$SampleName"_zotu_table.txt "$SampleName".zotus.fasta "$SampleName"_zotu_table_with_seq.txt
+    /mnt/matrix/symbio/Informative_indexes_script/add_seq_to_zotu.py "$SampleName"_zotu_table.txt "$SampleName".zotus.fasta "$SampleName"_zotu_table_with_seq.txt
 done""")
 
 os.system("mkdir raw_zotu && mv *_zotu_table.txt raw_zotu && mv *zotus.fasta raw_zotu")
